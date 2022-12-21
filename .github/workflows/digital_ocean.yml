@@ -1,0 +1,67 @@
+name: Deploy to Digital Ocean
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push events but only for the main branch
+  push:
+    paths:
+      - "**/values.yaml"
+    branches: [main]
+
+env:
+  REGISTRY: ghcr.io
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      dev: ${{ steps.filter.outputs.dev }}
+      prod: ${{ steps.filter.outputs.frontend }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            dev:
+              - '**/dev/values.yaml'
+            prod:
+              - '**/prod/values.yaml'
+
+        # run only if some file in 'dev' folder was changed
+      - name: Run a one-line script
+        if: steps.filter.outputs.dev == 'true'
+        run: echo This is dev stuff!
+
+        # run only if some file in 'prod' folder was changed
+      - name: Run a one-line script
+        if: steps.filter.outputs.prod == 'true'
+        run: echo This is prod stuff!
+  # JOB to dev
+  dev:
+    needs: changes
+    if: ${{ needs.changes.outputs.dev == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run a one-line script
+        if: steps.filter.outputs.dev == 'true'
+        run: echo This is dev stuff!
+
+  # JOB to prod
+  prod:
+    needs: changes
+    if: ${{ needs.changes.outputs.prod == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run a one-line script
+        if: steps.filter.outputs.prod == 'true'
+        run: echo This is prod stuff!
