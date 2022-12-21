@@ -1,5 +1,7 @@
 # Env repository
 
+[![Deploy to Digital Ocean](https://github.com/Horsty80/test-github-env/actions/workflows/digital_ocean.yml/badge.svg?branch=main)](https://github.com/Horsty80/test-github-env/actions/workflows/digital_ocean.yml)
+
 ## Prérequis :
 
 - Docker

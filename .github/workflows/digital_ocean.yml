@@ -53,7 +53,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run a one-line script
-        if: steps.filter.outputs.dev == 'true'
+        if: needs.changes.outputs.dev == 'true'
         run: echo This is dev stuff!
 
   # JOB to prod
@@ -63,5 +63,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run a one-line script
-        if: steps.filter.outputs.prod == 'true'
+        if: needs.changes.outputs.prod == 'true'
         run: echo This is prod stuff!
