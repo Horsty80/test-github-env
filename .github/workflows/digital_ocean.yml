@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       dev: ${{ steps.filter.outputs.dev }}
-      prod: ${{ steps.filter.outputs.frontend }}
+      prod: ${{ steps.filter.outputs.prod }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
