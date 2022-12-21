@@ -46,3 +46,4 @@ window.myAppName = { attribute: "value" };
 ## Amélioration :
 
 - Utilisation de Helm pour faire des templates pour la configuration
+- Créé une interface pour afficher / modifier les versions directement
