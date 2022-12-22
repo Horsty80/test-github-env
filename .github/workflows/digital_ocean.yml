@@ -99,12 +99,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        value: ${{ fromJSON(needs.changed.outputs.matrix) }}
+        value: ${{ fromJSON(needs.dev.outputs.matrix) }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Test
-        run: |
+      - run: |
           echo "${{ matrix.container }}"
 
   # JOB to prod
