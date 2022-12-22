@@ -74,7 +74,7 @@ jobs:
           echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
 
       - id: set-matrix
-        run: echo "matrix={\"container\":${{ steps.changed-files.outputs.all_changed_files }}}" >> "$GITHUB_OUTPUT"
+        run: echo "matrix={\"container\":${{ steps.changed-files-specific.outputs.all_changed_files }}}" >> "$GITHUB_OUTPUT"
       # Check with multiple files
       - name: List all changed files
         run: |
