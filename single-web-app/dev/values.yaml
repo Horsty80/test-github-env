@@ -4,3 +4,4 @@ components:
     tag: front
     version: single-web-app-front:1.0.2-abcde12345.main
     repository: https://github.com/Horsty80/single-web-app
+    last_version: single-web-app-front:1.0.2-abcde12345.main
