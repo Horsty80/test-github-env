@@ -2,5 +2,5 @@ env: dev
 components:
   - name: another-web-app
     tag: front
-    version: another-web-app-front:1.0.3-abcde12345.main
+    version: another-web-app-front:1.0.43-abcde12345.main
     repository: https://github.com/Horsty80/another-web-app
