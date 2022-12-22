@@ -2,5 +2,5 @@ env: dev
 components:
   - name: another-web-app
     tag: front
-    version: single-web-app-front:1.0.11-abcde12345.main
+    version: single-web-app-front:1.0.1-abcde12345.main
     repository: https://github.com/Horsty80/single-web-app

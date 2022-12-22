@@ -99,7 +99,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        value: ${{ fromJSON(needs.changed-files.outputs.matrix) }}
+        value: ${{ fromJSON(needs.changed.outputs.matrix) }}
     steps:
       - run: |
           echo "${{ matrix.container }}"
