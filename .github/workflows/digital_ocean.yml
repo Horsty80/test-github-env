@@ -49,6 +49,7 @@ jobs:
 
   changed-files:
     name: Get changes
+    needs: changes
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
