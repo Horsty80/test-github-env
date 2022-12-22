@@ -93,7 +93,7 @@ jobs:
         run: echo This is dev stuff! ${{ steps.parseYaml.outputs.result }}
 
   try_matrix:
-    needs: [setup]
+    needs: dev
     runs-on: ubuntu-latest
     strategy:
       matrix:
