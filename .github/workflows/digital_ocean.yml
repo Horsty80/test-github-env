@@ -52,7 +52,21 @@ jobs:
     if: ${{ needs.changes.outputs.dev == 'true' }}
     runs-on: ubuntu-latest
     steps:
+      # get repository code
       - uses: actions/checkout@v3
+      # detect with path is updated
+      - name: Get changed files in the docs folder
+        id: changed-files-specific
+        uses: tj-actions/changed-files@v35
+        with:
+          files: |
+            **/dev/values.yaml
+      # check it's working
+      - name: Run step if any file(s) in the docs folder change
+        if: steps.changed-files-specific.outputs.any_changed == 'true'
+        run: |
+          echo "One or more files in the docs folder has changed."
+          echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
       - name: Get SDK Version from config
         id: parseYaml
         uses: mikefarah/yq@master
@@ -71,4 +85,3 @@ jobs:
       - name: Run a one-line script
         if: needs.changes.outputs.prod == 'true'
         run: echo This is prod stuff!
-        
