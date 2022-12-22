@@ -52,9 +52,7 @@ jobs:
     if: ${{ needs.changes.outputs.dev == 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Run a one-line script
-        if: needs.changes.outputs.dev == 'true'
-        run: ls
+      - uses: actions/checkout@v3
       - name: Get SDK Version from config
         id: parseYaml
         uses: mikefarah/yq@master
@@ -73,3 +71,4 @@ jobs:
       - name: Run a one-line script
         if: needs.changes.outputs.prod == 'true'
         run: echo This is prod stuff!
+        
