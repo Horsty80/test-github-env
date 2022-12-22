@@ -101,7 +101,10 @@ jobs:
       matrix:
         value: ${{ fromJSON(needs.changed.outputs.matrix) }}
     steps:
-      - run: |
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Test
+        run: |
           echo "${{ matrix.container }}"
 
   # JOB to prod
