@@ -52,7 +52,7 @@ jobs:
     if: ${{ needs.changes.outputs.dev == 'true' }}
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.matrix.outputs.value }}
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       # get repository code
       - uses: actions/checkout@v3
@@ -63,6 +63,7 @@ jobs:
         id: changed-files-specific
         uses: tj-actions/changed-files@v35
         with:
+          json: true
           files: |
             **/dev/values.yaml
       # check it's working
@@ -71,7 +72,9 @@ jobs:
         run: |
           echo "One or more files in the docs folder has changed."
           echo "List all the files that have changed: ${{ steps.changed-files-specific.outputs.all_changed_files }}"
-          echo "matrix=${{ steps.changed-files-specific.outputs.all_changed_files }}" >> $GITHUB_OUTPUT
+
+      - id: set-matrix
+        run: echo "matrix={\"container\":${{ steps.changed-files.outputs.all_changed_files }}}" >> "$GITHUB_OUTPUT"
       # Check with multiple files
       - name: List all changed files
         run: |
@@ -91,25 +94,15 @@ jobs:
         if: needs.changes.outputs.dev == 'true'
         run: echo This is dev stuff! ${{ steps.parseYaml.outputs.result }}
 
-  try_matrix_first:
-    needs: dev
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        value: ${{ needs.changes.outputs.matrix }}
-    steps:
-      - run: |
-          echo "${{ matrix.value }}"
-
   try_matrix:
     needs: dev
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        value: ${{fromJson(needs.changes.outputs.matrix)}}
+        value: ${{ fromJSON(needs.changed-files.outputs.matrix) }}
     steps:
       - run: |
-          echo "${{ matrix.value }}"
+          echo "${{ matrix.container }}"
 
   # JOB to prod
   prod:
