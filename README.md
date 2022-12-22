@@ -42,6 +42,7 @@ window.myAppName = { attribute: "value" };
 
 - le numéro de version déployé correspond au package en suivant se pattern (à confirmer) `${nom_de_l_app}-${hash_de_commit}`
 - Exemple avec `another-web-app`, qui posséde un container front, est sur le `tag` : `1.0`, le dernier commit sur le trunk - `main` est le n°`323` et le short commit id est le `abcde12345` donnera comme version à déployer -> `another-web-app-front:1.0.323-abcde12345.main`
+- parse yaml with https://mikefarah.gitbook.io/yq/usage/github-action
 
 ## Amélioration :
 

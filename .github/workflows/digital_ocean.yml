@@ -52,9 +52,14 @@ jobs:
     if: ${{ needs.changes.outputs.dev == 'true' }}
     runs-on: ubuntu-latest
     steps:
+      - name: Get SDK Version from config
+        id: parseYaml
+        uses: mikefarah/yq@master
+        with:
+          cmd: yq '.components[0].version' 'single-web-app/dev/values.yaml'
       - name: Run a one-line script
         if: needs.changes.outputs.dev == 'true'
-        run: echo This is dev stuff!
+        run: echo This is dev stuff! ${{ steps.parseYaml.outputs.result }}
 
   # JOB to prod
   prod:
